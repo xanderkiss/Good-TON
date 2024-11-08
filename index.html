@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณความคุ้มค่าของสินค้า</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        .item-1 {
+            background-color: #e3f2fd;
+        }
+        .item-2 {
+            background-color: #fff3e0;
+        }
+        h3 {
+            margin: 0 0 10px;
+            color: #555;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .results {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .results p {
+            font-size: 18px;
+            color: #333;
+        }
+        .results .small-text {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+        .results strong {
+            font-size: 20px;
+            color: #d9534f;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>เปรียบเทียบความคุ้มค่าสินค้า</h2>
+
+        <div class="item item-1">
+            <h3>สินค้า 1</h3>
+            <label>จำนวน:</label>
+            <input type="number" id="quantity1" value="2">
+            <label>น้ำหนักต่อชิ้น (กรัม):</label>
+            <input type="number" id="weight1" value="500">
+            <label>ราคา (บาท):</label>
+            <input type="number" id="price1" value="120">
+        </div>
+
+        <div class="item item-2">
+            <h3>สินค้า 2</h3>
+            <label>จำนวน:</label>
+            <input type="number" id="quantity2" value="2">
+            <label>น้ำหนักต่อชิ้น (กรัม):</label>
+            <input type="number" id="weight2" value="400">
+            <label>ราคา (บาท):</label>
+            <input type="number" id="price2" value="95">
+        </div>
+
+        <button onclick="calculate()">คำนวณ</button>
+
+        <div class="results">
+            <p><strong><span id="comparison"></span></strong></p>
+            <p class="small-text" id="details"></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>จัดทำโดย<br>
+        นวก.โสตฯ ศุภฤกษ์ เนตรแก้ว</p>
+    </footer>
+
+    <script>
+        function calculate() {
+            const quantity1 = parseFloat(document.getElementById("quantity1").value);
+            const weight1 = parseFloat(document.getElementById("weight1").value);
+            const price1 = parseFloat(document.getElementById("price1").value);
+
+            const quantity2 = parseFloat(document.getElementById("quantity2").value);
+            const weight2 = parseFloat(document.getElementById("weight2").value);
+            const price2 = parseFloat(document.getElementById("price2").value);
+
+            // คำนวณปริมาณรวมและความคุ้มค่า
+            const totalWeight1 = quantity1 * weight1;
+            const value1 = totalWeight1 / price1;
+
+            const totalWeight2 = quantity2 * weight2;
+            const value2 = totalWeight2 / price2;
+
+            // เปรียบเทียบความคุ้มค่าและแสดงผลลัพธ์
+            if (value1 > value2) {
+                document.getElementById("comparison").textContent = "สินค้า 1 คุ้มค่ามากกว่า";
+            } else if (value1 < value2) {
+                document.getElementById("comparison").textContent = "สินค้า 2 คุ้มค่ามากกว่า";
+            } else {
+                document.getElementById("comparison").textContent = "สินค้ามีความคุ้มค่าเท่ากัน";
+            }
+
+            // แสดงรายละเอียดจำนวนกรัม/บาท
+            const detailText = `สินค้า 1: ${value1.toFixed(2)} กรัม/บาท, สินค้า 2: ${value2.toFixed(2)} กรัม/บาท`;
+            document.getElementById("details").textContent = detailText;
+        }
+    </script>
+</body>
+</html>
